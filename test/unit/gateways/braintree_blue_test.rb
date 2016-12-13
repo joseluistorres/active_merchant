@@ -647,7 +647,7 @@ class BraintreeBlueTest < Test::Unit::TestCase
   end
 
   def test_supports_network_tokenization_true
-    @gateway.stubs(supports_network_tokenization_brands: [:visa])
+    @gateway.stubs(supports_network_tokenization_brands: ['visa'])
     assert_instance_of TrueClass, @gateway.supports_network_tokenization?
   end
 

@@ -17,12 +17,17 @@ class RemoteBraintreeBlueTest < Test::Unit::TestCase
     }
   end
 
-  def test_supports_network_tokenization_brands
-    brands = @gateway.send(:supports_network_tokenization_brands)
-    assert_includes brands, :visa
-    assert_includes brands, :master
-    assert_includes brands, :american_express
-    assert_includes brands, :discover
+  def test_provision_raw_apple_pay
+    result = Braintree::MerchantGateway.new(@braintree_gateway).provision_raw_apple_pay
+    brands = result.supported_networks
+    assert_includes brands, 'visa'
+    assert_includes brands, 'mastercard'
+    assert_includes brands, 'amex'
+    assert_includes brands, 'discover'
+  end
+
+  def test_supports_network_tokenization
+    assert_equal true, @gateway.supports_network_tokenization?
   end
 
   def test_credit_card_details_on_store
